@@ -1,0 +1,179 @@
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <app-navbar></app-navbar>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <app-admin-sidebar></app-admin-sidebar>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Chi tiết phòng trọ</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <!-- Default box -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Chi tiết phòng #{{roomDetail.name}}</h3>
+
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+                            <div class="row">
+                                <div class="col-12 col-sm-3">
+                                    <div class="info-box bg-light">
+                                        <div class="info-box-content">
+                                            <span class="info-box-text text-center text-muted">Diện tích</span>
+                                            <span
+                                                class="info-box-number text-center text-muted mb-0">{{roomDetail.roomArea}}
+                                                m<sup>2</sup></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3">
+                                    <div class="info-box bg-light">
+                                        <div class="info-box-content">
+                                            <span class="info-box-text text-center text-muted">Giá phòng</span>
+                                            <span class="info-box-number text-center text-muted mb-0">{{
+                                                roomDetail.price.toLocaleString().replaceAll(",",
+                                                ".")}} đ</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3">
+                                    <div class="info-box bg-light">
+                                        <div class="info-box-content">
+                                            <span class="info-box-text text-center text-muted">Loại phòng</span>
+                                            <span
+                                                class="info-box-number text-center text-muted mb-0">{{roomDetail.type}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3">
+                                    <div class="info-box bg-light">
+                                        <div class="info-box-content">
+                                            <span class="info-box-text text-center text-muted">Trạng thái</span>
+                                            <span class="info-box-number text-center text-muted mb-0">
+                                                {{roomDetail.roomStatus.toString() == "AVAILABLE"
+                                                ? "Còn trống" : roomDetail.roomStatus.toString() == "RENTED" ? "Đã thuê"
+                                                : "Chưa rõ tình trạng"}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <br>
+                                    <h4>Mô tả</h4>
+                                    <div *ngIf="roomDetail.description.length > 20">{{roomDetail.description}}</div>
+                                    <div *ngIf="roomDetail.description.length < 20">
+                                        ✅SIÊU HOT - CHO THUÊ PHÒNG TRỌ CCMN MỚI 100%, KHÉP KÍN TẠI NGÕ 132 CẦU
+                                        DIỄN
+                                        <br>✅Ở NGAY CUỐI THÁNG 10
+                                        <br>✅Vị trí: Gần các trường ĐH Công Nghiệp, Trường đại Học Tài Nguyên Môi
+                                        Trường,
+                                        Đại học
+                                        <br>FPT Polytechnic …)
+                                        <br>✅Full nội thất cao cấp mới tinh gồm giường, đệm, ga, gối, chăn, rèm,
+                                        tủ
+                                        áo, điều
+                                        <br>hòa, nóng lạnh, tủ bếp trên bếp dưới, hút mùi, bếp từ, nồi, gương, bàn trang
+                                        điểm,...
+                                        <br>✅ Thiết kế đẹp đẳng cấp, đảm bảo như hình. Diện tích: Từ 20m2, các phòng có
+                                        cửa
+                                        sổ
+                                        <br>thoáng mát
+                                        <br>✅Có vân tay riêng từng người, camera 24/7, bộ phát wifi riêng
+                                        từng
+                                        phòng
+                                        <br>, máy giặt công suất lớn
+                                        <br>✅ - Dịch vụ: - Điện 3k8 /1 số, nước 100k/ 1 ng, internet 100k/phòng
+                                        <br>- Dịch vụ chung 150k/1 người gồm: Thang máy, máy giặt, đổ rác, lau dọn vệ
+                                        sinh, điện
+                                        <br>khu vực chung .....
+                                        <br>✅Miễn phí chỗ để xe máy, tối đa 2 xe/phòng
+                                        <br>✅Thiết kế đảm bảo hệ thống PCCC, báo cháy, vòi rồng phun nước, thang thoát
+                                        hiểm…
+                                        <br>✅Thanh toán cọc 1 thanh toán 1
+                                        <br>✅Số lượng người ở: 2-3 người/phòng
+                                        <br>✅Giá: Từ 4.x triệu/phòng/tháng.
+                                        <br>✅Liên hệ quản lý xem phòng: *** / ***
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
+                            <div class="ml-4">
+                                <h3 class="text-primary"><i class="fas fa-paint-brush"></i> Thông tin thuê</h3>
+                                <p class="text-muted">
+
+                                </p>
+                                <br>
+                                <div class="text-muted">
+                                    <p class="text-sm">Trạng thái
+                                        <b class="d-block">
+                                            {{roomDetail.roomStatus.toString() == "AVAILABLE"
+                                            ? "Còn trống" : roomDetail.roomStatus.toString() == "RENTED" ? "Đã thuê"
+                                            : "Chưa rõ tình trạng"}}
+                                        </b>
+                                    </p>
+                                </div>
+
+                                <h5 class="mt-3 text-muted">Địa chỉ</h5>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a href="" class="btn-link text-secondary"><i
+                                                class="far fa-fw fa-file-word"></i>
+                                            Tòa nhà {{roomDetail.buildingDto.name}}</a>
+                                    </li>
+                                    <li>
+                                        <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-pdf"></i>
+                                            {{roomDetail.buildingDto.address}}</a>
+                                    </li>
+
+                                </ul>
+                                <div class="text-center mt-5 mb-3">
+                                    <a (click)="onRental()" class="btn btn-sm btn-primary">Cho thuê</a>
+                                    <a href="#" class="ml-2 btn btn-sm btn-warning">Hủy phòng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <app-footer></app-footer>
+</div>
+<!-- ./wrapper -->

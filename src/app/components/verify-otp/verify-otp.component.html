@@ -1,0 +1,37 @@
+<nz-spin [nzSpinning]="isSpinning" [nzSize]="'large'">
+    <div class="hold-transition login-page">
+        <div class="login-logo">
+            <b>Rental </b> System
+        </div>
+        <div class="login-box">
+            <div class="card">
+                <div class="card-body login-card-body">
+                    <p class="login-box-msg" *ngIf="typeActive == 'email' || typeActive == 'email-register' ">
+                        Kiểm tra email và Nhập mã xác thực</p>
+                    <p class="login-box-msg" *ngIf="typeActive == 'totp'">
+                        Kiểm tra ứng dụng xác thực và Nhập mã xác thực</p>
+                    <p class="login-box-msg" *ngIf="typeActive == 'sms'">
+                        Kiểm tra tin nhắn và Nhập mã xác thực</p>
+
+                    <form class="mb-3 needs-validation" nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                <nz-input-group nzPrefixIcon="lock">
+                                    <input type="text" nz-input formControlName="activeCode"
+                                        placeholder="Mã xác thực" />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <div class="row">
+                            <div class="col-5 mt-2">
+                                <button type="submit" class="btn btn-primary btn-block">Xác thực</button>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                    </form>
+                </div>
+                <!-- /.login-card-body -->
+            </div>
+        </div>
+    </div>
+</nz-spin>

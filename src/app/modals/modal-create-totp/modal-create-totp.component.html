@@ -1,0 +1,18 @@
+<nz-spin [nzSpinning]="isSpinning" [nzSize]="'large'">
+    <div>
+        <qrcode [qrdata]="qrString" [width]="300" [errorCorrectionLevel]="'M'"></qrcode>
+        <form class="mb-3 needs-validation" nz-form [formGroup]="validateForm">
+            <nz-form-item>
+                <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                    <nz-input-group nzPrefixIcon="lock">
+                        <input type="text" nz-input formControlName="activeCode" placeholder="Mã xác thực" />
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </div>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="destroyModal()">Hủy</button>
+        <button nz-button nzType="primary" (click)="submitForm()">Xác thực</button>
+    </div>
+</nz-spin>

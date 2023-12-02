@@ -1,0 +1,88 @@
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <app-navbar></app-navbar>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <app-admin-sidebar></app-admin-sidebar>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-8">
+                        <h1 class="m-0">Lịch sử thuê phòng khách hàng: {{clientDto.fullName}}</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-4">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a [routerLink]="['/admin']">Trang chủ</a></li>
+                            <li class="breadcrumb-item active">Lịch sử thuê phòng</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Danh sách thuê phòng (Chọn hợp đồng để thanh toán)</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <nz-table nzShowSizeChanger nzBordered="true" #filterTable [nzData]="listOfDisplayData"
+                                [nzFrontPagination]="true" [nzLoading]="loading" [nzTotal]="total"
+                                [nzPageSize]="pageSize" [nzPageIndex]="pageIndex">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Mã phòng thuê</th>
+                                        <th>Địa chỉ phòng</th>
+                                        <th>Số điện thoại khách hàng</th>
+                                        <th>Ngày bắt đầu thuê</th>
+                                        <th>Ngày hết hạn</th>
+                                        <th>Tiền đặt cọc</th>
+                                        <th>Ngày tạo</th>
+                                        <!-- <th>Thao tác</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of filterTable.data; let i= index" style="cursor: pointer;"
+                                        (click)="onCreateBill(data.id)">
+                                        <td>{{i}}</td>
+                                        <td>{{data.roomDto.name}}</td>
+                                        <td>{{'Tòa nhà ' +
+                                            data.roomDto.buildingDto.name + ', ' +
+                                            data.roomDto.buildingDto.address}}</td>
+                                        <td>{{data.clientDto.phoneNumber}}</td>
+                                        <td>{{data.startDate | date: 'dd-MM-yyyy'}}</td>
+                                        <td>{{data.dueDate | date: 'dd-MM-yyyy'}}</td>
+                                        <td>{{ data.roomDeposit.toLocaleString().replaceAll(",",
+                                            ".")}} đ</td>
+                                        <td>{{data.createdAt | date: 'dd-MM-yyyy'}}</td>
+                                        <!-- <td [nzRight]="false">
+                                            <a><span nz-icon nzType="edit" nzTheme="outline"></span></a>
+                                            <nz-divider nzType="vertical"></nz-divider>
+                                            <a><span nz-icon nzType="delete" nzTheme="outline"></span></a>
+                                        </td> -->
+                                    </tr>
+                                </tbody>
+                            </nz-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <app-footer></app-footer>
+</div>
+<!-- ./wrapper -->

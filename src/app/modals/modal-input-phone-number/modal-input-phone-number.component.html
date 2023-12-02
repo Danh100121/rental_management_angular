@@ -1,0 +1,18 @@
+<nz-spin [nzSpinning]="isSpinning" [nzSize]="'large'">
+    <form nz-form [formGroup]="validateForm">
+        <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
+            <ng-template #addOnBeforeTemplate>
+                <nz-select formControlName="phoneNumberPrefix" class="phone-select">
+                    <nz-option nzLabel="+86" nzValue="+86"></nz-option>
+                    <nz-option nzLabel="+87" nzValue="+87"></nz-option>
+                    <nz-option nzLabel="+84" nzValue="+84"></nz-option>
+                </nz-select>
+            </ng-template>
+            <input formControlName="phoneNumber" placeholder="Nhập số điện thoại" nz-input />
+        </nz-input-group>
+    </form>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="destroyModal()">Hủy</button>
+        <button nz-button nzType="primary" (click)="submitForm()">Xác thực</button>
+    </div>
+</nz-spin>

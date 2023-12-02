@@ -1,0 +1,145 @@
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <app-navbar></app-navbar>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <app-admin-sidebar></app-admin-sidebar>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Cho thuê phòng</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a [routerLink]="['/admin']">Trang chủ</a></li>
+                            <li class="breadcrumb-item active">Cho thuê phòng</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Chọn một khách hàng hoặc đăng ký khách hàng mới</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <button nz-button nzType="primary" (click)="showModalCreateClient()">Thêm mới</button>
+                            <br />
+                            <br />
+                            <nz-table nzShowSizeChanger nzBordered="true" #filterTable [nzData]="listOfDisplayData"
+                                [nzFrontPagination]="true" [nzLoading]="loading" [nzTotal]="total"
+                                [nzPageSize]="pageSize" [nzPageIndex]="pageIndex">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Tên khách hàng</th>
+                                        <th>Căn cước công dân</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Email</th>
+                                        <th>Trạng thái</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of filterTable.data; let i= index" style="cursor: pointer;"
+                                        [class.highlight]="rowSelectedClient == data.id" style="cursor: pointer;">
+                                        <td (click)="clickEvent(data.id)">{{i}}</td>
+                                        <td (click)="clickEvent(data.id)">{{ data.fullName }}</td>
+                                        <td (click)="clickEvent(data.id)">{{ data.idCard }}</td>
+                                        <td (click)="clickEvent(data.id)">{{ data.address }}</td>
+                                        <td (click)="clickEvent(data.id)">{{ data.phoneNumber }}</td>
+                                        <td (click)="clickEvent(data.id)">{{ data.email }}</td>
+                                        <td (click)="clickEvent(data.id)">
+                                            {{ data.clientStatus.toString() == "AVAILABLE"
+                                            ? "Chưa thuê/Đã hủy" : data.clientStatus.toString() == "RENTED"
+                                            ? "Đang thuê" : "Chưa rõ tình trạng"}}</td>
+                                        <td [nzRight]="false">
+                                            <a><span nz-icon nzType="edit" nzTheme="outline"
+                                                (click)="showModalUpdateClient(data.id)"></span></a>
+                                            <nz-divider nzType="vertical"></nz-divider>
+                                            <a><span nz-icon nzType="delete" nzTheme="outline"
+                                                (click)="onDeleteClient(data.id)"></span></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </nz-table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Nhập thông tin</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <form nz-form nzLayout="vertical" [formGroup]="validateForm">
+                                <div nz-row nzGutter="16">
+                                    <div nz-col nzSm="12">
+                                        <nz-form-item>
+                                            <nz-form-label nzRequired>Ngày bắt đầu</nz-form-label>
+                                            <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                                <nz-date-picker nzFormat="dd-MM-yyyy" formControlName="startDate"></nz-date-picker>
+                                            </nz-form-control>
+                                        </nz-form-item>
+                                    </div>
+                                    <div nz-col nzSm="12">
+                                        <nz-form-item>
+                                            <nz-form-label nzRequired>Ngày hết hạn</nz-form-label>
+                                            <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                                <nz-date-picker nzFormat="dd-MM-yyyy" formControlName="dueDate"></nz-date-picker>
+                                            </nz-form-control>
+                                        </nz-form-item>
+                                    </div>
+                                </div>
+                                <div nz-row nzGutter="16">
+                                    <div nz-col nzSm="12">
+                                        <nz-form-item>
+                                            <nz-form-label nzRequired>Tiền đặt cọc</nz-form-label>
+                                            <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                                <input nz-input type="number" formControlName="roomDeposit" placeholder="Tiền đặt cọc" />
+                                            </nz-form-control>
+                                        </nz-form-item>
+                                    </div>
+                                </div>
+                                <div nz-row nzGutter="16">
+                                    <div nz-col nzSm="24">
+                                        <nz-form-item>
+                                            <nz-form-label>Ghi chủ</nz-form-label>
+                                            <nz-form-control>
+                                                <textarea rows="4" nz-input formControlName="note" placeholder="Mô tả"></textarea>
+                                            </nz-form-control>
+                                        </nz-form-item>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-info" (click)="onRental()">Cho thuê phòng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <app-footer></app-footer>
+</div>
+<!-- ./wrapper -->

@@ -1,0 +1,101 @@
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <app-navbar></app-navbar>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <app-admin-sidebar></app-admin-sidebar>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Quản lý phòng trọ</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="content-fluid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Danh sách phòng trọ (Chọn 1 phòng trọ để xem chi tiết)</h3>
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                              <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+          
+                              <div class="input-group-append">
+                                <button type="submit" class="btn btn-default">
+                                  <i class="fas fa-search"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <button nz-button nzType="primary" (click)="showModalCreateRoom()">Thêm mới</button>
+                        <br />
+                        <br />
+                        <nz-table nzShowSizeChanger nzBordered="true" #filterTable [nzData]="listOfDisplayData"
+                        [nzFrontPagination]="true" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
+                        [nzPageIndex]="pageIndex">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Mã phòng</th>
+                                    <th>Loại phòng</th>
+                                    <th>Diện tích</th>
+                                    <th>Tòa nhà</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Giá phòng</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of filterTable.data; let i= index"
+                                style="cursor: pointer;">
+                                    <td (click)="onViewDetail(data.id)">{{i}}</td>
+                                    <td (click)="onViewDetail(data.id)">{{data.name}}</td>
+                                    <td (click)="onViewDetail(data.id)">{{data.type}}</td>
+                                    <td (click)="onViewDetail(data.id)">{{data.roomArea}} m<sup>2</sup></td>
+                                    <td (click)="onViewDetail(data.id)">{{data.buildingDto.name}}</td>
+                                    <td (click)="onViewDetail(data.id)">{{data.buildingDto.address}}</td>
+                                    <td (click)="onViewDetail(data.id)">{{ data.price.toLocaleString().replaceAll(",",
+                                         ".")}} đ</td>
+                                    <td (click)="onViewDetail(i)">{{data.roomStatus.toString() == "AVAILABLE"
+                                    ? "Còn trống" : data.roomStatus.toString() == "RENTED" ? "Đã thuê" : "Chưa rõ tình trạng"}}</td>
+                                    <td [nzRight]="false">
+                                        <a><span nz-icon
+                                                nzType="edit" nzTheme="outline"
+                                                (click)="showModalUpdateRoom(data.id)"></span></a>
+                                        <nz-divider nzType="vertical"></nz-divider>
+                                        <a><span nz-icon
+                                                nzType="delete" nzTheme="outline"
+                                                (click)="onDeleteRoom(data.id)"></span></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </nz-table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <app-footer></app-footer>
+</div>
+<!-- ./wrapper -->
