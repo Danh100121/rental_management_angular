@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { AccountService } from 'src/app/services/account.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-modal-create-totp',
@@ -22,6 +23,7 @@ export class ModalCreateTotpComponent {
   constructor(
     private fb: UntypedFormBuilder,
     private accountService: AccountService,
+    private authService: AuthService,
     private notification: NzNotificationService,
     private modal: NzModalRef,
     private router: Router
@@ -38,7 +40,8 @@ export class ModalCreateTotpComponent {
     this.accountService.registerTotp().subscribe(response => {
       this.secretCode = response.message;
       console.log(this.secretCode);
-      this.qrString = "otpauth://totp/Example:alice@google.com?secret=" + this.secretCode + "&issuer=Example";
+      this.qrString = "otpauth://totp/Rental-System:" + this.authService.getNameOfAccount()
+        + "?secret=" + this.secretCode + "&issuer=Rental-System";
     }, error => {
       this.isSpinning = false;
       this.notification.create(

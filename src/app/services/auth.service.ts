@@ -21,6 +21,6 @@ export class AuthService {
   }
 
   getNameOfAccount(): string {
-    return ""
+    return sessionStorage.getItem('username') || "";
   }
 }
