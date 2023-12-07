@@ -18,6 +18,7 @@ export class AccountRes implements BaseResponse {
 export class AccountRegister {
     username!: string;
     email!: string;
+    phoneNumber!: string;
     authority!: RoleEnum;
     password!: string;
 }

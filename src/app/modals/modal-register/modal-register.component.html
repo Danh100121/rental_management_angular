@@ -12,15 +12,23 @@
                 </div>
                 <div nz-col nzSm="12">
                     <nz-form-item>
-                        <nz-form-label nzRequired>Email</nz-form-label>
-                        <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
-                            <input nz-input formControlName="email" placeholder="Email" />
+                        <nz-form-label nzRequired nzFor="email">E-mail</nz-form-label>
+                        <nz-form-control nzErrorTip="Sai định dạng E-mail!">
+                            <input nz-input formControlName="email" id="email" placeholder="Email"/>
                         </nz-form-control>
                     </nz-form-item>
                 </div>
             </div>
             <div nz-row nzGutter="16">
-                <div nz-col nzSpan="10">
+                <div nz-col nzSm="12">
+                    <nz-form-item>
+                        <nz-form-label nzRequired>Số điện thoại</nz-form-label>
+                        <nz-form-control nzErrorTip="Sai định dạng số điện thoại!">
+                            <input nz-input formControlName="phoneNumber" placeholder="Số điện thoại" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col nzSpan="12">
                     <nz-form-item>
                         <nz-form-label nzRequired>Mật khẩu</nz-form-label>
                         <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
